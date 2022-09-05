@@ -84,6 +84,7 @@ package() {
 	mv "$pkgdir/usr/share/calamares/modules/services-systemd.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	sed -i -e 's/-systemd//' "$pkgdir/usr/lib/calamares/modules/services/module.desc"
 	sed -i -e 's/-systemd//' "$pkgdir/usr/share/calamares/settings.conf"
+    sed -i /' - keyboard'/d "$pkgdir/usr/share/calamares/settings.conf"
 
 	# fix branding install
 	cp -av "../src/branding/manjaro" "$pkgdir/usr/share/calamares/branding/"
