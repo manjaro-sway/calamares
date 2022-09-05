@@ -49,6 +49,8 @@ prepare() {
 
 	# change branding
 	sed -i -e "s/default/manjaro/g" src/branding/CMakeLists.txt
+
+    sed -i /' - keyboard'/d settings.conf
 	
 	# https://github.com/calamares/calamares/issues/1945
 	patch -Np1 -i ../b140b67c9fddb96701e46d23e9a72ddfbe77e0d0.patch
@@ -59,7 +61,7 @@ prepare() {
 
 build() {
 	cd ${srcdir}/calamares-${pkgver}
-	
+
 	mkdir -p build
 	cd build
         cmake .. \
@@ -89,6 +91,7 @@ package() {
 	mv "$pkgdir/usr/share/calamares/modules/services-systemd.conf" "$pkgdir/usr/share/calamares/modules/services.conf"
 	sed -i -e 's/-systemd//' "$pkgdir/usr/lib/calamares/modules/services/module.desc"
 	sed -i -e 's/-systemd//' "$pkgdir/usr/share/calamares/settings.conf"
+    sed -i /' - keyboard'/d "$pkgdir/usr/share/calamares/settings.conf"
 
 	# fix branding install
 	cp -av "../src/branding/manjaro" "$pkgdir/usr/share/calamares/branding/"
